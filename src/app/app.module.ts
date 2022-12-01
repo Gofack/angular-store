@@ -9,6 +9,8 @@ import { ProductComponent } from './components/product/product.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { SortComponent } from './components/sort/sort.component';
 import { ClickOutsideDirective } from './directives/click-outside.directive';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
 
 @NgModule({
 	declarations: [
@@ -23,7 +25,10 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		HttpClientModule
+		HttpClientModule,
+		StoreModule.forRoot(reducers, {
+			metaReducers
+		})
 	],
 	providers: [],
 	bootstrap: [AppComponent]
