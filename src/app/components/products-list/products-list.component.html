@@ -6,7 +6,7 @@
 		</div>
 		<h2 class="content__title">All products</h2>
 		<div class="content__items">
-			<app-product *ngFor="let product of products" [product]="product" class="product"></app-product>
+			<app-product *ngFor="let product of products$ | async" [product]="product" class="product"></app-product>
 		</div>
 	</div>
 </div>

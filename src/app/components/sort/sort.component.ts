@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { sortingSelector, setSorting } from 'src/app/reducers/sort';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-sort',
@@ -7,8 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SortComponent implements OnInit {
 	public dropdownOpen: boolean = false;
+	public sortingItems = ['rating', 'price', 'A-Z', 'Z-A'];
+	sorting$: Observable<String> = this.store.select(sortingSelector);
 
-	constructor() { }
+
+	constructor(private store: Store) { }
 
 	ngOnInit(): void {
 	}
@@ -19,5 +25,9 @@ export class SortComponent implements OnInit {
 
 	clickOutside() {
 		this.dropdownOpen = false;
+	}
+
+	setSorting(sortName: string) {
+		this.store.dispatch(setSorting({ sorting: sortName }));
 	}
 }

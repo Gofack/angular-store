@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Product } from 'src/app/interfaces/product';
+import { loadProductsSuccess, ProductsActionsTypes, productsSelector } from 'src/app/reducers/products';
 import { DataService } from 'src/app/services/data.service';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-products-list',
@@ -8,11 +11,17 @@ import { DataService } from 'src/app/services/data.service';
 	styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent implements OnInit {
-	products: Product[] = [];
+	// products: Product[] = [];
+	products$: Observable<Product[]> = this.store.select(productsSelector);
 
-	constructor(private dataService: DataService) { }
+	constructor(
+		private dataService: DataService,
+		private store: Store
+	) { }
 
 	ngOnInit(): void {
-		this.dataService.getProducts().subscribe(data => this.products = data);
+		this.store.dispatch({ type: ProductsActionsTypes.LoadProducts })
+		// this.store.dispatch(loadProductsSuccess({ payload: [] }));
+		// this.dataService.getProducts().subscribe(data => this.products = data);
 	}
 }

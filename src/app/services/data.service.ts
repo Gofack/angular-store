@@ -10,8 +10,13 @@ export class DataService {
 
 	constructor(private http: HttpClient) { }
 
-	getProducts(): Observable<Product[]> {
-		return this.http.get<Product[]>('https://fakestoreapi.com/products');
+	getProducts(sorting?: string): Observable<Product[]> {
+		return this.http.get<Product[]>(`https://fakestoreapi.com/products?sort=${sorting}`);
+		// return this.http.get<Product[]>(`https://fakestoreapi.com/products`);
+	}
+
+	getSortedProducts(sortName: string): Observable<Product[]> {
+		return this.http.get<Product[]>(`https://fakestoreapi.com/products?sort=${sortName}`);
 	}
 
 	getCategories(): Observable<[]> {

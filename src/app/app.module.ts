@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -11,6 +11,10 @@ import { SortComponent } from './components/sort/sort.component';
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { SortEffects } from './effects/sort.effects';
+import { ProductsEffects } from './effects/products.effects';
 
 @NgModule({
 	declarations: [
@@ -28,7 +32,9 @@ import { reducers, metaReducers } from './reducers';
 		HttpClientModule,
 		StoreModule.forRoot(reducers, {
 			metaReducers
-		})
+		}),
+		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+		EffectsModule.forRoot([ProductsEffects, SortEffects])
 	],
 	providers: [],
 	bootstrap: [AppComponent]
