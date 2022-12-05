@@ -34,7 +34,7 @@ import { ProductsEffects } from './effects/products.effects';
 			metaReducers
 		}),
 		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-		EffectsModule.forRoot([ProductsEffects, SortEffects])
+		EffectsModule.forRoot([ProductsEffects, SortEffects]),
 	],
 	providers: [],
 	bootstrap: [AppComponent]

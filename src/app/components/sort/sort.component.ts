@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class SortComponent implements OnInit {
 	public dropdownOpen: boolean = false;
-	public sortingItems = ['rating', 'price', 'A-Z', 'Z-A'];
+	public sortingItems = ['A-Z', 'Z-A'];
 	sorting$: Observable<String> = this.store.select(sortingSelector);
 
 
