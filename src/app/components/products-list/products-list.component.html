@@ -4,7 +4,7 @@
 			<app-categories></app-categories>
 			<app-sort></app-sort>
 		</div>
-		<h2 class="content__title">All products</h2>
+		<h2 class="content__title">{{category$ | async}} <span *ngIf="(category$ | async) === 'all'">products</span></h2>
 		<div class="content__items">
 			<app-product *ngFor="let product of products$ | async" [product]="product" class="product"></app-product>
 		</div>

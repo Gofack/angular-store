@@ -1,6 +1,6 @@
 <div class="categories">
 	<ul>
-		<li class="active">All</li>
-		<li *ngFor="let category of categories">{{category | titlecase}}</li>
+		<li (click)="setCategory('all')" [ngClass]="(category$ | async) === 'all' ? 'active' : ''">All</li>
+		<li *ngFor="let category of categories" (click)="setCategory(category)" [ngClass]="(category$ | async) === category ? 'active' : ''">{{category | titlecase}}</li>
 	</ul>
 </div>

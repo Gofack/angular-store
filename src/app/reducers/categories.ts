@@ -21,4 +21,4 @@ export const categoryReducer = createReducer(
 )
 
 export const categoryFeatureSelector = createFeatureSelector<Category>(CATEGORY_KEY);
-export const sortingSelector = createSelector(categoryFeatureSelector, state => state.category)
+export const categorySelector = createSelector(categoryFeatureSelector, state => state.category)

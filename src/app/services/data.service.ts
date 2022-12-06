@@ -12,7 +12,6 @@ export class DataService {
 
 	getProducts(sorting?: string): Observable<Product[]> {
 		return this.http.get<Product[]>(`https://fakestoreapi.com/products?sort=${sorting}`);
-		// return this.http.get<Product[]>(`https://fakestoreapi.com/products`);
 	}
 
 	getSortedProducts(sortName: string): Observable<Product[]> {
@@ -21,5 +20,9 @@ export class DataService {
 
 	getCategories(): Observable<[]> {
 		return this.http.get<[]>('https://fakestoreapi.com/products/categories');
+	}
+
+	getProductCategory(category: string): Observable<Product[]> {
+		return this.http.get<Product[]>(`https://fakestoreapi.com/products/category/${category}`);
 	}
 }

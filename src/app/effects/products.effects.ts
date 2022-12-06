@@ -8,6 +8,7 @@ import { Product } from "../interfaces/product";
 import * as ProductActions from '../reducers/products';
 import { ProductsActionsTypes } from "../reducers/products";
 import { setSorting } from "../reducers/sort";
+import { setCategory } from "../reducers/categories";
 
 @Injectable()
 export class ProductsEffects {
@@ -39,6 +40,32 @@ export class ProductsEffects {
 				// catchError((error) => of(ProductActions.loadProductsFailure({ error })))
 				catchError(() => EMPTY)
 			)
+		}
+		),
+	));
+
+	setCategory$ = createEffect(() => this.actions$.pipe(
+		ofType(setCategory),
+		mergeMap((action) => {
+			if (action.category === 'all') {
+				return this.dataService.getProducts().pipe(
+					map(
+						(products: Product[]) =>
+							ProductActions.loadProductsSuccess({ payload: products })
+					),
+					// catchError((error) => of(ProductActions.loadProductsFailure({ error })))
+					catchError(() => EMPTY)
+				)
+			} else {
+				return this.dataService.getProductCategory(action.category).pipe(
+					map(
+						(products: Product[]) =>
+							ProductActions.loadProductsSuccess({ payload: products })
+					),
+					// catchError((error) => of(ProductActions.loadProductsFailure({ error })))
+					catchError(() => EMPTY)
+				)
+			}
 		}
 		),
 	));
