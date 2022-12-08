@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Product } from 'src/app/interfaces/product';
+import { addToCart } from 'src/app/reducers/cart';
 
 @Component({
 	selector: 'app-product',
@@ -17,12 +19,19 @@ export class ProductComponent implements OnInit {
 			rate: 0,
 			count: 0
 		},
-		title: ''
+		title: '',
+		count: 0
 	};
 
-	constructor() { }
+	constructor(
+		private store: Store,
+	) { }
 
 	ngOnInit(): void {
 		// console.log(this.product);
+	}
+
+	addToCart(product: Product) {
+		this.store.dispatch(addToCart({ product }));
 	}
 }
