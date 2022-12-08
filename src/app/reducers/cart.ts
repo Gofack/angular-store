@@ -1,4 +1,5 @@
 import { createAction, createReducer, on, createFeatureSelector, createSelector, props } from "@ngrx/store";
+import { __assign } from "tslib";
 import { Product } from "../interfaces/product";
 
 export const CART_KEY = 'cart';
@@ -23,23 +24,49 @@ export const cartReducer = createReducer(
 	on(addToCart, (state, action) => {
 		// ...state,
 		// products: action.product
+		console.log(state.products);
 		const findProduct = state.products.find((obj) => obj.id === action.product.id);
 		console.log(findProduct);
 		if (findProduct) {
-			findProduct.count++;
-			return state
+			// findProduct.count++;
+			// console.log(findProduct);
+			// return Object.assign({},
+			// 	state,
+			// 	findProduct.count++
+			// 	// {
+			// 	// 	// count: action.product.count++
+			// 	// 	products: [...state.products, { ...action.product, count: 3 }]
+			// 	// }
+			// )
+			console.log(action.product);
+			console.log(action.product.count);
+			return Object.assign({},
+				state,
+				{
+					products: [
+						Object.assign({}, ...state.products,
+							{ ...findProduct, count: (findProduct.count || 0) + 1 }
+						)
+					]
+				}
+			);
 		} else {
-			console.log(action);
+			// console.log(action);
 			// state.products.push({
 			// 	...action.product,
 			// 	count: 1,
 			// });
 			// state.products.push(action.product);
+			// console.log(action.product);
 			return Object.assign({},
 				state,
 				{
 					// products: state.products.push({ ...action.product, count: 1 })
-					products: [...state.products, { ...action.product, count: 1 }]
+					products: [
+						// Object.assign({}, ...state.products, { ...action.product, count: 1 })
+						...state.products,
+						{ ...action.product, count: 1 }
+					]
 				}
 			);
 		}
