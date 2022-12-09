@@ -22,56 +22,35 @@ export const initialCartState: Cart = {
 export const cartReducer = createReducer(
 	initialCartState,
 	on(addToCart, (state, action) => {
-		// ...state,
-		// products: action.product
-		console.log(state.products);
 		const findProduct = state.products.find((obj) => obj.id === action.product.id);
+		const index = state.products.map(obj => obj.id).indexOf(action.product.id);
+		console.log(index);
 		console.log(findProduct);
+		console.log(action.product);
+		// console.log(state.prodcts[])
 		if (findProduct) {
-			// findProduct.count++;
-			// console.log(findProduct);
-			// return Object.assign({},
-			// 	state,
-			// 	findProduct.count++
-			// 	// {
-			// 	// 	// count: action.product.count++
-			// 	// 	products: [...state.products, { ...action.product, count: 3 }]
-			// 	// }
-			// )
-			console.log(action.product);
-			console.log(action.product.count);
 			return Object.assign({},
 				state,
 				{
 					products: [
-						Object.assign({}, ...state.products,
-							{ ...findProduct, count: (findProduct.count || 0) + 1 }
-						)
-					]
-				}
-			);
-		} else {
-			// console.log(action);
-			// state.products.push({
-			// 	...action.product,
-			// 	count: 1,
-			// });
-			// state.products.push(action.product);
-			// console.log(action.product);
-			return Object.assign({},
-				state,
-				{
-					// products: state.products.push({ ...action.product, count: 1 })
-					products: [
-						// Object.assign({}, ...state.products, { ...action.product, count: 1 })
 						...state.products,
-						{ ...action.product, count: 1 }
+						{ ...findProduct, count: (findProduct.count || 0) + 1 }
+						// Object.assign({}, ...state.products,
+						// { ...findProduct, count: (findProduct.count || 0) + 1 }
+						// )
 					]
 				}
 			);
 		}
-		// return { ...state, products: state.products.push({ ...action.product, count: 1 }) };
-		// return { ...state };
+		return Object.assign({},
+			state,
+			{
+				products: [
+					...state.products,
+					{ ...action.product, count: 1 }
+				]
+			}
+		);
 	})
 )
 
