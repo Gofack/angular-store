@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Product } from 'src/app/interfaces/product';
+import { IProduct } from 'src/app/interfaces/product';
 import { addToCart } from 'src/app/reducers/cart';
 
 @Component({
@@ -9,7 +9,7 @@ import { addToCart } from 'src/app/reducers/cart';
 	styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-	@Input() product: Product = {
+	@Input() product: IProduct = {
 		category: '',
 		description: '',
 		id: 0,
@@ -20,7 +20,7 @@ export class ProductComponent implements OnInit {
 			count: 0
 		},
 		title: '',
-		count: 0
+		counter: 0
 	};
 
 	constructor(
@@ -31,7 +31,7 @@ export class ProductComponent implements OnInit {
 		// console.log(this.product);
 	}
 
-	addToCart(product: Product) {
+	addToCart(product: IProduct) {
 		this.store.dispatch(addToCart({ product }));
 	}
 }

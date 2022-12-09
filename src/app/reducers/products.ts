@@ -1,6 +1,6 @@
 // import { state } from "@angular/animations";
 import { createAction, createReducer, on, props, createFeatureSelector, createSelector } from "@ngrx/store";
-import { Product } from "../interfaces/product";
+import { IProduct } from "../interfaces/product";
 
 export const PRODUCTS_KEY = 'products';
 export enum ProductsActionsTypes {
@@ -9,12 +9,12 @@ export enum ProductsActionsTypes {
 	LoadProductsFail = '[Products] Load products fail'
 }
 export const loadProducts = createAction(ProductsActionsTypes.LoadProducts);
-export const loadProductsSuccess = createAction(ProductsActionsTypes.LoadProductsSuccess, props<{ payload: Product[] }>());
+export const loadProductsSuccess = createAction(ProductsActionsTypes.LoadProductsSuccess, props<{ payload: IProduct[] }>());
 export const loadProductsFailure = createAction(ProductsActionsTypes.LoadProductsFail, props<{ error: any }>());
 
 export interface ProductsData {
 	// loading: boolean;
-	products: Product[];
+	products: IProduct[];
 	// error?: string | null;
 }
 

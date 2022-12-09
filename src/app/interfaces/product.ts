@@ -1,6 +1,6 @@
 import { Rating } from "./rating";
 
-export interface Product {
+export interface IProduct {
 	category: string;
 	description: string;
 	id: number;
@@ -8,5 +8,5 @@ export interface Product {
 	price: number;
 	rating: Rating;
 	title: string;
-	count: number;
+	counter: number;
 }

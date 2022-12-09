@@ -4,7 +4,7 @@ import { DataService } from "../services/data.service";
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { of, EMPTY } from "rxjs";
 import { loadProducts } from "../reducers/products";
-import { Product } from "../interfaces/product";
+import { IProduct } from "../interfaces/product";
 import * as ProductActions from '../reducers/products';
 import { ProductsActionsTypes } from "../reducers/products";
 import { setSorting } from "../reducers/sort";
@@ -17,7 +17,7 @@ export class ProductsEffects {
 		mergeMap(() =>
 			this.dataService.getProducts().pipe(
 				map(
-					(products: Product[]) =>
+					(products: IProduct[]) =>
 						ProductActions.loadProductsSuccess({ payload: products })
 				),
 				// catchError((error) => of(ProductActions.loadProductsFailure({ error })))
@@ -34,7 +34,7 @@ export class ProductsEffects {
 			if (action.sorting === 'Z-A') key = 'desc';
 			return this.dataService.getProducts(key).pipe(
 				map(
-					(products: Product[]) =>
+					(products: IProduct[]) =>
 						ProductActions.loadProductsSuccess({ payload: products })
 				),
 				// catchError((error) => of(ProductActions.loadProductsFailure({ error })))
@@ -50,7 +50,7 @@ export class ProductsEffects {
 			if (action.category === 'all') {
 				return this.dataService.getProducts().pipe(
 					map(
-						(products: Product[]) =>
+						(products: IProduct[]) =>
 							ProductActions.loadProductsSuccess({ payload: products })
 					),
 					// catchError((error) => of(ProductActions.loadProductsFailure({ error })))
@@ -59,7 +59,7 @@ export class ProductsEffects {
 			} else {
 				return this.dataService.getProductCategory(action.category).pipe(
 					map(
-						(products: Product[]) =>
+						(products: IProduct[]) =>
 							ProductActions.loadProductsSuccess({ payload: products })
 					),
 					// catchError((error) => of(ProductActions.loadProductsFailure({ error })))
