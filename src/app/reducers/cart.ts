@@ -24,33 +24,30 @@ export const cartReducer = createReducer(
 	on(addToCart, (state, action) => {
 		const findProduct = state.products.find((obj) => obj.id === action.product.id);
 		const index = state.products.map(obj => obj.id).indexOf(action.product.id);
-		console.log(index);
-		console.log(findProduct);
-		console.log(action.product);
-		// console.log(state.prodcts[])
 		if (findProduct) {
-			return Object.assign({},
-				state,
-				{
-					products: [
-						...state.products,
-						// { ...findProduct, count: (findProduct.count || 0) + 1 }
-						Object.assign({}, ...state.products,
-							{ [index]: action.product, count: (findProduct.counter || 0) + 1 }
-						)
-					]
-				}
-			);
-		}
-		return Object.assign({},
-			state,
-			{
+			return {
+				...state,
 				products: [
-					...state.products,
-					{ ...action.product, counter: 1 }
-				]
+					...state.products.slice(0, index),
+					{
+						...state.products[index],
+						counter: (findProduct.counter || 0) + 1
+					},
+					...state.products.slice(index + 1)
+				],
+				totalCount: (state.totalCount || 0) + 1,
+				totalPrice: (state.totalPrice || 0) + action.product.price
 			}
-		);
+		}
+		return {
+			...state,
+			products: [
+				...state.products,
+				{ ...action.product, counter: 1 }
+			],
+			totalCount: (state.totalCount || 0) + 1,
+			totalPrice: (state.totalPrice || 0) + action.product.price
+		}
 	})
 )
 

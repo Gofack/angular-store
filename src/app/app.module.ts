@@ -15,6 +15,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { SortEffects } from './effects/sort.effects';
 import { ProductsEffects } from './effects/products.effects';
+import { CartItemComponent } from './components/cart-item/cart-item.component';
 
 @NgModule({
 	declarations: [
@@ -24,7 +25,8 @@ import { ProductsEffects } from './effects/products.effects';
 		ProductComponent,
 		CategoriesComponent,
 		SortComponent,
-		ClickOutsideDirective
+		ClickOutsideDirective,
+  CartItemComponent,
 	],
 	imports: [
 		BrowserModule,
