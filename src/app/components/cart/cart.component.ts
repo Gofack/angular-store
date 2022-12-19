@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IProduct } from 'src/app/interfaces/product';
-import { cartProductsSelector, cartTotalCountSelector, cartTotalPriceSelector } from 'src/app/reducers/cart';
+import { cartProductsSelector, cartTotalCountSelector, cartTotalPriceSelector, clearCart } from 'src/app/reducers/cart';
 
 @Component({
 	selector: 'app-cart',
@@ -19,6 +19,10 @@ export class CartComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+	}
+
+	clearCart() {
+		if (window.confirm('Clear your cart?')) this.store.dispatch(clearCart());
 	}
 
 }

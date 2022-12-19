@@ -31,6 +31,9 @@
 		align-items: center;
 		cursor: pointer;
 		@include noselect();
+		background: none;
+		border: none;
+		outline: 0;
 
 		span {
 			display: inline-block;

@@ -5,6 +5,7 @@ export const CART_KEY = 'cart';
 export const addToCart = createAction('[Cart] Add ot cart', props<{ product: IProduct }>());
 export const removeFromCart = createAction('[Cart] Remove from cart', props<{ product: IProduct }>());
 export const clearCart = createAction('[Cart] Clear cart');
+export const removeItemFromCart = createAction('[Cart] Remove item from cart', props<{ product: IProduct }>());
 
 export interface Cart {
 	products: IProduct[];
@@ -30,7 +31,7 @@ export const cartReducer = createReducer(
 					...state.products.slice(0, index),
 					{
 						...state.products[index],
-						counter: (findProduct.counter || 0) + 1
+						counter: (action.product.counter || 0) + 1
 					},
 					...state.products.slice(index + 1)
 				],
@@ -49,24 +50,41 @@ export const cartReducer = createReducer(
 		}
 	}),
 	on(removeFromCart, (state, action) => {
-		const findProduct = state.products.find((obj) => obj.id === action.product.id);
 		const index = state.products.map(obj => obj.id).indexOf(action.product.id);
+		return {
+			...state,
+			products: [
+				...state.products.slice(0, index),
+				{
+					...state.products[index],
+					counter: action.product.counter > 1 ? (action.product.counter || 0) - 1 : 1
+				},
+				...state.products.slice(index + 1)
+			],
+			totalCount: action.product.counter > 1 ? (state.totalCount || 0) - 1 : (state.totalCount || 0) - 0,
+			totalPrice: action.product.counter > 1 ? (state.totalPrice || 0) - action.product.price : (state.totalPrice || 0) - 0
+		}
+	}),
+	on(removeItemFromCart, (state, action) => {
+		const findProduct = state.products.find((obj) => obj.id === action.product.id);
 		if (findProduct) {
 			return {
 				...state,
 				products: [
-					...state.products.slice(0, index),
-					{
-						...state.products[index],
-						counter: (findProduct.counter || 0) - 1
-					},
-					...state.products.slice(index + 1)
+					...state.products.filter(el => el.id !== action.product.id)
 				],
-				totalCount: (state.totalCount || 0) - 1,
-				totalPrice: (state.totalPrice || 0) - action.product.price
+				totalCount: state.totalCount - action.product.counter,
+				totalPrice: state.totalPrice - (action.product.counter * action.product.price)
 			}
 		}
 		return state;
+	}),
+	on(clearCart, () => {
+		return {
+			products: [],
+			totalCount: 0,
+			totalPrice: 0
+		}
 	})
 )
 
