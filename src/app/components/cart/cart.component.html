@@ -25,8 +25,8 @@
 			</div>
 			<div class="cart__bottom">
 				<div class="cart__bottom-details">
-					<span> Total quantity <b>total quantity</b> </span>
-					<span> Total price: <b>total price</b> </span>
+					<span> Total quantity <b>{{totalCount$ | async}}</b> </span>
+					<span> Total price: <b>{{(totalPrice$ | async) | number: '1.2-2'}}$</b> </span>
 				</div>
 				<div class="cart__bottom-buttons">
 					<a href="/" class="button button--outline button--add go-back-btn">

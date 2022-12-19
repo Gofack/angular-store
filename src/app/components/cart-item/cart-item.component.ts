@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { IProduct } from 'src/app/interfaces/product';
+import { addToCart, removeFromCart } from 'src/app/reducers/cart';
 
 @Component({
 	selector: 'app-cart-item',
@@ -21,7 +23,21 @@ export class CartItemComponent implements OnInit {
 		counter: 0
 	};
 
+	constructor(
+		private store: Store
+	) {
+
+	}
+
 	ngOnInit(): void {
 		// console.log(this.product);
+	}
+
+	addToCart(product: IProduct) {
+		this.store.dispatch(addToCart({ product }));
+	}
+
+	removeFromCart(product: IProduct) {
+		this.store.dispatch(removeFromCart({ product }))
 	}
 }
