@@ -1,6 +1,7 @@
 // import { state } from "@angular/animations";
 import { createAction, createReducer, on, props, createFeatureSelector, createSelector } from "@ngrx/store";
 import { IProduct } from "../interfaces/product";
+import { Status } from "./types";
 
 export const PRODUCTS_KEY = 'products';
 export enum ProductsActionsTypes {
@@ -15,6 +16,7 @@ export const loadProductsFailure = createAction(ProductsActionsTypes.LoadProduct
 export interface ProductsData {
 	// loading: boolean;
 	products: IProduct[];
+	status: Status
 	// error?: string | null;
 }
 
@@ -25,26 +27,31 @@ export interface ProductsData {
 export const initialProductsState: ProductsData = {
 	// loading: false,
 	products: [],
+	status: Status.LOADING,
 	// error: ''
 }
 
 export const productsReducer = createReducer(
 	initialProductsState,
-	// on(loadProducts, state => ({
-	// 	...state,
-	// 	loaded: false,
-	// 	error: null
-	// })),
+	on(loadProducts, state => ({
+		...state,
+		status: Status.LOADING,
+		// error: null
+	})),
 	on(loadProductsSuccess, (state, { payload: products }) => ({
 		...state,
 		products: products,
 		// loaded: true
+		status: Status.SUCCESS,
+		// error: null
 	})),
-	// on(loadProductsFailure, (state, { error }) => ({
-	// 	...state,
-	// 	error
-	// }))
+	on(loadProductsFailure, (state, { error }) => ({
+		...state,
+		status: Status.ERROR,
+		// error
+	}))
 )
 
 export const productsFeatureSelector = createFeatureSelector<ProductsData>(PRODUCTS_KEY);
-export const productsSelector = createSelector(productsFeatureSelector, state => state.products)
+export const productsSelector = createSelector(productsFeatureSelector, state => state.products);
+export const productsStatusSelector = createSelector(productsFeatureSelector, state => state.status);

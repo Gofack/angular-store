@@ -5,6 +5,11 @@
 			<app-sort></app-sort>
 		</div>
 		<h2 class="content__title">{{category$ | async}} <span *ngIf="(category$ | async) === 'all'">products</span></h2>
+		<h3>status: {{status$ | async}}</h3>
+		<ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+      'height.px': 50,
+      'background-color': '#992929'
+    }"></ngx-skeleton-loader>
 		<div class="content__items">
 			<app-product *ngFor="let product of products$ | async" [product]="product" class="product"></app-product>
 		</div>

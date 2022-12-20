@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { SortEffects } from './effects/sort.effects';
 import { ProductsEffects } from './effects/products.effects';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
 	declarations: [
@@ -26,12 +27,13 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
 		CategoriesComponent,
 		SortComponent,
 		ClickOutsideDirective,
-  CartItemComponent,
+		CartItemComponent,
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		HttpClientModule,
+		NgxSkeletonLoaderModule,
 		StoreModule.forRoot(reducers, {
 			metaReducers
 		}),
