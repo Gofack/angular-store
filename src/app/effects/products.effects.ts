@@ -37,8 +37,8 @@ export class ProductsEffects {
 					(products: IProduct[]) =>
 						ProductActions.loadProductsSuccess({ payload: products })
 				),
-				// catchError((error) => of(ProductActions.loadProductsFailure({ error })))
-				catchError(() => EMPTY)
+				catchError((error) => of(ProductActions.loadProductsFailure({ error })))
+				// catchError(() => EMPTY)
 			)
 		}
 		),
@@ -53,8 +53,8 @@ export class ProductsEffects {
 						(products: IProduct[]) =>
 							ProductActions.loadProductsSuccess({ payload: products })
 					),
-					// catchError((error) => of(ProductActions.loadProductsFailure({ error })))
-					catchError(() => EMPTY)
+					catchError((error) => of(ProductActions.loadProductsFailure({ error })))
+					// catchError(() => EMPTY)
 				)
 			} else {
 				return this.dataService.getProductCategory(action.category).pipe(
@@ -62,8 +62,8 @@ export class ProductsEffects {
 						(products: IProduct[]) =>
 							ProductActions.loadProductsSuccess({ payload: products })
 					),
-					// catchError((error) => of(ProductActions.loadProductsFailure({ error })))
-					catchError(() => EMPTY)
+					catchError((error) => of(ProductActions.loadProductsFailure({ error })))
+					// catchError(() => EMPTY)
 				)
 			}
 		}

@@ -52,6 +52,13 @@ body {
 		align-items: center;
 		justify-content: space-between;
 	}
+
+	.skeleton-loader {
+		&.circle {
+			// height: 15rem;
+			// width: 12rem;
+		}
+	}
 }
 
 .container {
@@ -64,4 +71,9 @@ body {
 			margin: 0;
 		}
 	}
+}
+
+.error-block {
+	text-align: center;
+	padding: 5rem 0;
 }
