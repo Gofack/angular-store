@@ -12,8 +12,13 @@
 		</div>
 		<ng-template #cardsBlock>
 			<div *ngIf="(status$ | async) === 'loading'; else productCards">
-				<ngx-skeleton-loader count="8" appearance="circle" [theme]="{ 'height.px': 150, 'width.%': 20}" animation="pulse">
-				</ngx-skeleton-loader>
+				<div class="content__items">
+					<div class="product" *ngFor="let num of [1,2,3,4,5,6,7,8]">
+						<ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 'height': '196px', 'width': '100%'}" animation="pulse"></ngx-skeleton-loader>
+						<ngx-skeleton-loader count="1" appearance="line" [theme]="{ 'height': '40px', 'width': '100%'}" animation="pulse"></ngx-skeleton-loader>
+						<ngx-skeleton-loader count="1" appearance="line" [theme]="{ 'height': '40px', 'width': '100%'}" animation="pulse"></ngx-skeleton-loader>
+					</div>
+				</div>
 			</div>
 			<ng-template #productCards>
 				<div class="content__items">

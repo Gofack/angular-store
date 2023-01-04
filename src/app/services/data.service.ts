@@ -11,7 +11,7 @@ export class DataService {
 	constructor(private http: HttpClient) { }
 
 	getProducts(sorting?: string): Observable<IProduct[]> {
-		return this.http.get<IProduct[]>(`https://fakestoreapi.com/products1?sort=${sorting}`);
+		return this.http.get<IProduct[]>(`https://fakestoreapi.com/products?sort=${sorting}`);
 	}
 
 	getSortedProducts(sortName: string): Observable<IProduct[]> {
